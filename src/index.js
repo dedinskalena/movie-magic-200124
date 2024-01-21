@@ -1,17 +1,18 @@
 const express=require('express')
 const app=express()
+
+const configHandelbars=require('./config/configHandelbars.js')
+const configExpress=require('./config/configExpress.js')
+
 const port=5000
-const handlebars=require('express-handlebars')
-const path=require('path')
 const routes=require('./routes.js')
 
-app.engine('hbs',handlebars.engine({
-    extname:'hbs'
-}))
-app.set('view engine','hbs')
-app.set('views',path.join(__dirname,'views'))
-app.use(express.static(path.join(__dirname,'public')))
+ 
+configHandelbars(app)
+configExpress(app)
 
 
 app.use(routes)
+
+
 app.listen(port,()=>console.log('Server listening on port 5000'))
