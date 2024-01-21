@@ -8,7 +8,8 @@ router.get('/create',(req,res)=>{
 })
 router.post('/create',(req,res)=>{
  const newMovie=req.body
+ console.log(newMovie)
  movieService.create(newMovie)
-     
+ res.send('Movie create')    
 })
 module.exports=router
