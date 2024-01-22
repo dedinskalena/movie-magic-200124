@@ -16,7 +16,8 @@ router.post('/create',(req,res)=>{
 router.get('/movies/:movieId',(req,res)=>{
     const movieId=req.params.movieId
     const movie=movieService.getOne(movieId)
-    console.log(movie)
+    movie.ratingStars=new Array(Number(movie.rating)).fill('*').join(' ')
+    
     res.render('details',{movie})
 })
 module.exports=router
