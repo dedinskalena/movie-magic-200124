@@ -17,7 +17,7 @@ router.get('/movies/:movieId',(req,res)=>{
     const movieId=req.params.movieId
     let movie=movieService.getOne(movieId)
     let stars=Number(movie.rating)
-    movie.rating=new Array(stars).fill(true)
+    //movie.rating=new Array(stars).fill(true)
     //console.log(movie.rating)
     res.render('details',{movie})
 })
