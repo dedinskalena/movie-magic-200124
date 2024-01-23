@@ -10,10 +10,14 @@ router.get('/about',(req,res)=>{
 
 })
 
+ 
+
 router.get('/search',(req,res)=>{
-    const movies=movieService.getAll()
-    res.render('search',{movies})
+    const {title,genre,year}=req.query
+    let movieResult=movieService.search(title,genre,year)
+    res.render('search',{movies:movieResult})
 })
+
 
 router.get('/404',(req,res)=>{
     res.render('404')
