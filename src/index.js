@@ -1,6 +1,6 @@
 const express=require('express')
 const mongoose=require('mongoose')
-const Movie=require('./models/Movie.js')
+//const Movie=require('./models/Movie.js')
 const app=express()
 
 const configHandelbars=require('./config/configHandelbars.js')
@@ -24,3 +24,4 @@ mongoose.connect(`mongodb://127.0.0.1:27017/magic-movies`)
 .catch(err=>console.log('Can not connect to DB'))
 //mongoose.connection.on('error',(err)=>console.error(err))
 
+ 
