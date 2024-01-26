@@ -18,9 +18,9 @@ exports.getAll=()=>{
     //return movies.slice()
 }  
 
-exports.search=async(title,genre,year)=>{
+exports.search=async (title,genre,year)=>{
 let result=await Movie.find().lean()
-
+ 
 //TODO filter result in mongoDB
 
 if(title){

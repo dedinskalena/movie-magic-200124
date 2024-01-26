@@ -13,9 +13,10 @@ router.get('/about',(req,res)=>{
 
  
 
-router.get('/search',(req,res)=>{
+router.get('/search',async (req,res)=>{
     const {title,genre,year}=req.query
-    let movieResult=movieService.search(title,genre,year)
+    let movieResult=await movieService.search(title,genre,year)
+    
     res.render('search',{movies:movieResult})
 })
 
