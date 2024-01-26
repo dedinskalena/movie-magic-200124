@@ -7,8 +7,8 @@ router.get('/create',(req,res)=>{
     res.render('create')
 })
 router.post('/create',async (req,res)=>{
- //const newMovie=req.body
- console.log(newMovie)
+ const newMovie=req.body
+ //console.log(newMovie)
  try{
      await movieService.create(newMovie)
      res.redirect('/')   
@@ -19,11 +19,11 @@ router.post('/create',async (req,res)=>{
  }
 })
 
-router.get('/movies/:movieId',(req,res)=>{
+router.get('/movies/:movieId',async (req,res)=>{
     const movieId=req.params.movieId
-    let movie=movieService.getOne(movieId)
+    let movie=await movieService.getOne(movieId).lean()
     let stars=Number(movie.rating)
-    //movie.rating=new Array(stars).fill(true)
+    movie.rating=new Array(stars).fill(true)
     //console.log(movie.rating)
     res.render('details',{movie})
 })

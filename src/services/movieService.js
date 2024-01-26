@@ -13,11 +13,16 @@ let movies=[{
 
 
 exports.getAll=()=>{
-    return movies.slice()
+    const movies= Movie.find()
+    return movies
+    //return movies.slice()
 }  
 
-exports.search=(title,genre,year)=>{
-let result=movies.slice() 
+exports.search=async(title,genre,year)=>{
+let result=await Movie.find().lean()
+
+//TODO filter result in mongoDB
+
 if(title){
     result=result.filter(m=>m.title.includes(title))
 } 
@@ -34,11 +39,11 @@ return result
 
 
 exports.getOne=(movieId)=>{
-    const movie=movies.find(m=>m._id==movieId)
+    const movie=Movie.findById(movieId)
     return movie
 }
-exports.create=async (movieData)=>{
-    const result= await Movie.create(movieData)
+exports.create= (movieData)=>{
+    const result= Movie.create(movieData)
     return result
     
 }

@@ -33,7 +33,7 @@ const movieSchema=new mongoose.Schema({
     imageUrl:{
         type:String,
         required:true,
-        mach:/^https?/
+        mach:/^https?:\/\//
     }
 
 })
