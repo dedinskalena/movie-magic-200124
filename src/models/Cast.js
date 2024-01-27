@@ -1,4 +1,4 @@
-const mongoose=require('mpngoose')
+const mongoose=require('mongoose')
 const catsSchema=new mongoose.Schema({
     name:{
        type: String,
@@ -22,7 +22,7 @@ const catsSchema=new mongoose.Schema({
         type:String,
         required:true,
         validate:{
-            validator(value){return/^http?:\/\//.test(value)}
+            validator(value){return /^https?:\/\//.test(value)}
         },
         message:(prop)=>`This is invalid url for the cast image`
 
@@ -31,7 +31,7 @@ const catsSchema=new mongoose.Schema({
 
 })
 
-const Cast=mongoose.mode('Cast',catsSchema)
+const Cast=mongoose.model('Cast',catsSchema)
 module.exports=Cast
 
  
