@@ -34,7 +34,11 @@ const movieSchema=new mongoose.Schema({
         type:String,
         required:true,
         mach:/^https?:\/\//
-    }
+    },
+    casts:[{
+        type:mongoose.Types.ObjectId,
+        ref:'Cast'
+    }]
 
 })
 

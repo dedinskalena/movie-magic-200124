@@ -47,4 +47,6 @@ exports.create= (movieData)=>{
     return result
     
 }
-
+exports.attach=async (movieId,castId)=>{
+    return Movie.findByIdAndUpdate(movieId,{$push:{casts:castId}})
+}
