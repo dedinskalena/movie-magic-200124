@@ -25,7 +25,8 @@ router.get('/movies/:movieId',async (req,res)=>{
     let movie=await movieService.getOne(movieId).lean()
     let stars=Number(movie.rating)
     movie.rating=new Array(stars).fill(true)
-    //console.log(movie.rating)
+    // const casts=await castService.getByMovieId(movieId)
+    //  //console.log(casts)
     res.render('details',{movie})
 })
 

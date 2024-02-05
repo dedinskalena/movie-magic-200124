@@ -21,25 +21,26 @@ exports.getAll=()=>{
 exports.search=async (title,genre,year)=>{
 let result=await Movie.find().lean()
  
-//TODO filter result in mongoDB
 
 if(title){
-    result=result.filter(m=>m.title.includes(title))
-} 
+        result=result.filter(m=>m.title.includes(title))
+    } 
 if(genre){
-    result=result.filter(m=>m.genre===genre)
-}
-
+        result=result.filter(m=>m.genre===genre)
+    }
+        
 if(year){
-    result=result.filter(m=>m.year===year)
-}
-return result
-}
+        result=result.filter(m=>m.year===year)
+    }
+//TODO filter result in mongoDB
 
-
+    return result
+}
+        
+        
 
 exports.getOne=(movieId)=>{
-    const movie=Movie.findById(movieId)
+    const movie=Movie.findById(movieId).populate('casts')
     return movie
 }
 exports.create= (movieData)=>{
