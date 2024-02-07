@@ -15,7 +15,7 @@ router.post('/create',async (req,res)=>{
 
  }
 
- console.log(newMovie)
+ //console.log(newMovie)
  try{
      await movieService.create(newMovie)
      res.redirect('/')   
@@ -29,11 +29,14 @@ router.post('/create',async (req,res)=>{
 router.get('/movies/:movieId',async (req,res)=>{
     const movieId=req.params.movieId
     let movie=await movieService.getOne(movieId).lean()
+    const isOwner=movie.owner==req.user?._id
+     
+
     let stars=Number(movie.rating)
     movie.rating=new Array(stars).fill(true)
     // const casts=await castService.getByMovieId(movieId)
     //  //console.log(casts)
-    res.render('movie/details',{movie})
+    res.render('movie/details',{movie,isOwner})
 })
 
 router.get('/movies/:movieId/attach',async (req,res)=>{
