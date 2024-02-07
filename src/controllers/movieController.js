@@ -1,15 +1,21 @@
 const router=require('express').Router()
-const { create } = require('express-handlebars')
+//const { create } = require('express-handlebars')
 const movieService=require('../services/movieService')
 const castService=require('../services/castService')
+const {isAuth}=require('../middlewares/authMiddleware')
 
 
 router.get('/create',(req,res)=>{
     res.render('create')
 })
 router.post('/create',async (req,res)=>{
- const newMovie=req.body
- //console.log(newMovie)
+ const newMovie={
+     ...req.body,
+     owner:req.user._id
+
+ }
+
+ console.log(newMovie)
  try{
      await movieService.create(newMovie)
      res.redirect('/')   
@@ -27,7 +33,7 @@ router.get('/movies/:movieId',async (req,res)=>{
     movie.rating=new Array(stars).fill(true)
     // const casts=await castService.getByMovieId(movieId)
     //  //console.log(casts)
-    res.render('details',{movie})
+    res.render('movie/details',{movie})
 })
 
 router.get('/movies/:movieId/attach',async (req,res)=>{
@@ -43,7 +49,8 @@ router.post('/movies/:movieId/attach',async (req,res)=>{
 
 })
 
-router.get('/movies/:movieId/edit',async (req,res)=>{
+router.get('/movies/:movieId/edit',isAuth,async (req,res)=>{
+    
     const movie= await movieService.getOne(req.params.movieId).lean()
 
     res.render('movie/edit',{movie})
