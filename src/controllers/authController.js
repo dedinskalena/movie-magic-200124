@@ -1,14 +1,24 @@
 const router=require('express').Router()
+
 const authService=require('..//services/authService')
+const { getErrorMassage } = require('../utils/errorUtils')
 
 router.get('/register',(req,res)=>{
     res.render('auth/register')
 })
+
 router.post('/register',async (req,res)=>{
     const userData=req.body
-     await authService.register(userData)
-     res.redirect('/auth/login')
+
+    try{
+        await authService.register(userData)
+        res.redirect('auth/login')
+    }catch(err){
+        const message=getErrorMassage(err)
+        res.render('auth/register',{error:message})
+    }
 })
+
 router.get('/login',(req,res)=>{
     res.render('auth/login')
 })

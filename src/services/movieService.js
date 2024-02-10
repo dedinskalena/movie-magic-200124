@@ -51,3 +51,4 @@ exports.create= (movieData)=>{
 exports.attach=async (movieId,castId)=>{
     return Movie.findByIdAndUpdate(movieId,{$push:{casts:castId}})
 }
+exports.delete=(movieId)=>Movie.findByIdAndDelete(movieId)

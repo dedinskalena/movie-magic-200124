@@ -3,6 +3,7 @@ const router=require('express').Router()
 const movieService=require('../services/movieService')
 const castService=require('../services/castService')
 const {isAuth}=require('../middlewares/authMiddleware')
+const { getErrorMassage } = require('../utils/errorUtils')
 
 
 router.get('/create',(req,res)=>{
@@ -21,15 +22,15 @@ router.post('/create',async (req,res)=>{
      res.redirect('/')   
 
  }catch(err){
-    console.log(err.message)
-    res.redirect('/create')
+    const message=getErrorMassage(err)
+    res.render('create',{error:message,...newMovie})
  }
 })
 
 router.get('/movies/:movieId',async (req,res)=>{
     const movieId=req.params.movieId
     let movie=await movieService.getOne(movieId).lean()
-    const isOwner=movie.owner==req.user?._id
+    const isOwner=movie.owner&&movie.owner==req.user?._id
      
 
     let stars=Number(movie.rating)
@@ -59,6 +60,10 @@ router.get('/movies/:movieId/edit',isAuth,async (req,res)=>{
     res.render('movie/edit',{movie})
 })
 
+router.get('/movies/:movieId/delete',isAuth,async (req,res)=>{
+    await movieService.delete(req.params.movieId)
+    res.redirect('/')
+})
 
 
 module.exports=router

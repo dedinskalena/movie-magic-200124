@@ -8,7 +8,7 @@ const catsSchema=new mongoose.Schema({
         type:Number,
         required:true,
         max:120,
-        min:14
+        min:1
     },
     born:{
         type:String,

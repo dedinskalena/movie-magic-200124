@@ -3,7 +3,15 @@ const bcrypt=require('bcrypt')
 const jwt=require('../lib/jwt')
 const secret='afdhfkflboirnmvmxvs'
 
-exports.register=(userData)=>User.create(userData)
+exports.register=async (userData)=>{
+    const user=await User.findOne({email:userData.email});
+    //console.log(user)
+    if(user){
+        throw new Error('Email already exist')
+    }
+    return User.create(userData)
+}
+
 exports.login=async (email,password)=>{
     //get user from db
     const user=await User.findOne({email})
